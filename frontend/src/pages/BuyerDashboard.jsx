@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import toast from 'react-hot-toast';
 import { FaSearch, FaFilter, FaPaw } from 'react-icons/fa';
 
@@ -34,7 +34,7 @@ const BuyerDashboard = () => {
         limit: 12,
         ...(searchTerm && { search: searchTerm })
       };
-      const response = await axios.get('/api/animals', { params });
+      const response = await apiClient.get('/api/animals', { params });
       setAnimals(response.data.animals);
       setTotalPages(response.data.totalPages);
     } catch (error) {

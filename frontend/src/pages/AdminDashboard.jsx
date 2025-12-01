@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import toast from 'react-hot-toast';
 import {
   FaCheckCircle,
@@ -30,13 +30,13 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       if (activeTab === 'pending') {
-        const res = await axios.get('/api/admin/animals/pending');
+        const res = await apiClient.get('/api/admin/animals/pending');
         setPendingAnimals(res.data);
       } else if (activeTab === 'users') {
-        const res = await axios.get('/api/admin/users');
+        const res = await apiClient.get('/api/admin/users');
         setUsers(res.data.users || []);
       } else if (activeTab === 'analytics') {
-        const res = await axios.get('/api/admin/analytics');
+        const res = await apiClient.get('/api/admin/analytics');
         setAnalytics(res.data || null);
       }
     } catch {
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`/api/admin/animals/${id}/approve`);
+      await apiClient.put(`/api/admin/animals/${id}/approve`);
       toast.success('Animal approved');
       fetchData();
     } catch {
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.put(`/api/admin/animals/${id}/reject`);
+      await apiClient.put(`/api/admin/animals/${id}/reject`);
       toast.success('Animal rejected');
       fetchData();
     } catch {
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
 
   const handleUserUpdate = async (userId, updates) => {
     try {
-      await axios.put(`/api/admin/users/${userId}`, updates);
+      await apiClient.put(`/api/admin/users/${userId}`, updates);
       fetchData();
     } catch {
       toast.error('Failed to update user');
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
   const handleDeleteUser = async (userId) => {
     if (!window.confirm('Are you sure?')) return;
     try {
-      await axios.delete(`/api/admin/users/${userId}`);
+      await apiClient.delete(`/api/admin/users/${userId}`);
       toast.success('User deleted');
       fetchData();
     } catch {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { useWishlist } from '../context/WishlistContext';
@@ -29,7 +29,7 @@ const AnimalDetail = () => {
 
   const fetchAnimal = async () => {
     try {
-      const response = await axios.get(`/api/animals/${id}`);
+      const response = await apiClient.get(`/api/animals/${id}`);
       setAnimal(response.data);
       fetchRelatedAnimals(response.data);
     } catch (error) {
@@ -42,7 +42,7 @@ const AnimalDetail = () => {
 
   const fetchRelatedAnimals = async (currentAnimal) => {
     try {
-      const response = await axios.get('/api/animals', {
+      const response = await apiClient.get('/api/animals', {
         params: {
           species: currentAnimal.species,
           state: currentAnimal.location.state,
@@ -59,7 +59,7 @@ const AnimalDetail = () => {
       await Promise.all(
         filtered.map(async (animal) => {
           try {
-            const reviewsRes = await axios.get(`/api/reviews/animal/${animal._id}`);
+            const reviewsRes = await apiClient.get(`/api/reviews/animal/${animal._id}`);
             if (reviewsRes.data && reviewsRes.data.length > 0) {
               const avgRating = reviewsRes.data.reduce((sum, r) => sum + r.rating, 0) / reviewsRes.data.length;
               reviewsMap[animal._id] = {
@@ -80,7 +80,7 @@ const AnimalDetail = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`/api/reviews/animal/${id}`);
+      const response = await apiClient.get(`/api/reviews/animal/${id}`);
       setReviews(response.data);
     } catch (error) {
       console.error('Failed to load reviews');
@@ -100,12 +100,12 @@ const AnimalDetail = () => {
     }
 
     try {
-      const convResponse = await axios.post('/api/messages/conversation', {
+      const convResponse = await apiClient.post('/api/messages/conversation', {
         receiverId: animal.seller._id,
         animalId: animal._id
       });
 
-      await axios.post('/api/messages', {
+      await apiClient.post('/api/messages', {
         receiverId: animal.seller._id,
         animalId: animal._id,
         message: message,
@@ -133,7 +133,7 @@ const AnimalDetail = () => {
         return;
       }
 
-      await axios.post('/api/reviews', {
+      await apiClient.post('/api/reviews', {
         sellerId: animal.seller._id || animal.seller,
         animalId: animal._id,
         rating: Number(reviewData.rating),

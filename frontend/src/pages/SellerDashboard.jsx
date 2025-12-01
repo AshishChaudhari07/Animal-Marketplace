@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import toast from 'react-hot-toast';
 import { FaPlus, FaEdit, FaTrash, FaPaw, FaCheckCircle, FaClock, FaTimesCircle, FaEye, FaComments, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
@@ -35,7 +35,7 @@ const SellerDashboard = () => {
   const fetchAnimals = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/animals/seller/my-animals');
+      const response = await apiClient.get('/api/animals/seller/my-animals');
       // Initialize view count and message count if not present
       const enrichedAnimals = response.data.map(animal => ({
         ...animal,
@@ -72,12 +72,12 @@ const SellerDashboard = () => {
       });
 
       if (editingAnimal) {
-        await axios.put(`/api/animals/${editingAnimal._id}`, data, {
+        await apiClient.put(`/api/animals/${editingAnimal._id}`, data, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         toast.success('Animal updated successfully');
       } else {
-        await axios.post('/api/animals', data, {
+        await apiClient.post('/api/animals', data, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         toast.success('Animal listed successfully');
@@ -129,7 +129,7 @@ const SellerDashboard = () => {
     if (!window.confirm('Are you sure you want to delete this animal?')) return;
 
     try {
-      await axios.delete(`/api/animals/${id}`);
+      await apiClient.delete(`/api/animals/${id}`);
       toast.success('Animal deleted successfully');
       fetchAnimals();
     } catch (error) {

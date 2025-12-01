@@ -41,7 +41,7 @@ const Settings = () => {
     try {
       // If your backend exposes a change-password endpoint, update the URL below.
       // Fallback: simulate success to avoid blocking the UI if backend not implemented.
-      // await axios.post('/api/auth/change-password', { currentPassword, newPassword });
+      // await apiClient.post('/api/auth/change-password', { currentPassword, newPassword });
       await new Promise(resolve => setTimeout(resolve, 700));
       toast.success('Password changed successfully (simulated)');
       form.reset();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import { FaEnvelope } from 'react-icons/fa';
 
 const ForgotPassword = () => {
@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     if (!email) return toast.error('Please enter your email');
     setLoading(true);
     try {
-      await axios.post('/api/auth/forgot-password', { email });
+      await apiClient.post('/api/auth/forgot-password', { email });
       toast.success('If that email exists, a reset link has been sent. Check server logs for the link (simulated).');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to request reset');

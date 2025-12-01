@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import { useAuth } from './AuthContext';
 
 const WishlistContext = createContext();
@@ -28,7 +28,7 @@ export const WishlistProvider = ({ children }) => {
   const fetchWishlist = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/wishlist');
+      const response = await apiClient.get('/api/wishlist');
       setWishlist(response.data.animals || []);
     } catch (error) {
       console.error('Failed to load wishlist:', error);
@@ -40,7 +40,7 @@ export const WishlistProvider = ({ children }) => {
   const addToWishlist = async (animalId) => {
     if (!user) return false;
     try {
-      const response = await axios.post(`/api/wishlist/add/${animalId}`);
+      const response = await apiClient.post(`/api/wishlist/add/${animalId}`);
       setWishlist(response.data.animals || []);
       return true;
     } catch (error) {
@@ -52,7 +52,7 @@ export const WishlistProvider = ({ children }) => {
   const removeFromWishlist = async (animalId) => {
     if (!user) return false;
     try {
-      const response = await axios.post(`/api/wishlist/remove/${animalId}`);
+      const response = await apiClient.post(`/api/wishlist/remove/${animalId}`);
       setWishlist(response.data.animals || []);
       return true;
     } catch (error) {

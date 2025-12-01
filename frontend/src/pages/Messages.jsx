@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { FaPaperPlane, FaPaw } from 'react-icons/fa';
@@ -37,7 +37,7 @@ const Messages = () => {
 
   const fetchConversations = async () => {
     try {
-      const response = await axios.get('/api/messages/conversations');
+      const response = await apiClient.get('/api/messages/conversations');
       setConversations(response.data);
       if (response.data.length > 0 && !selectedConversation) {
         setSelectedConversation(response.data[0].conversationId);
@@ -52,7 +52,7 @@ const Messages = () => {
   const fetchMessages = async () => {
     if (!selectedConversation) return;
     try {
-      const response = await axios.get(`/api/messages/conversation/${selectedConversation}`);
+      const response = await apiClient.get(`/api/messages/conversation/${selectedConversation}`);
       setMessages(response.data);
     } catch (error) {
       console.error('Failed to load messages');
@@ -71,7 +71,7 @@ const Messages = () => {
       setIsTyping(true);
       setTimeout(() => setIsTyping(false), 2000);
 
-      await axios.post('/api/messages', {
+      await apiClient.post('/api/messages', {
         receiverId: conversation.otherUser._id,
         animalId: conversation.animal._id,
         message: newMessage,

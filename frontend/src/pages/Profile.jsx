@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { FaUser, FaSave } from 'react-icons/fa';
@@ -53,7 +53,7 @@ const Profile = () => {
         data.append('avatar', avatar);
       }
 
-      await axios.put('/api/users/profile', data, {
+      await apiClient.put('/api/users/profile', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

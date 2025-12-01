@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import { FaLock } from 'react-icons/fa';
 
 const ResetPassword = () => {
@@ -19,7 +19,7 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      await axios.post(`/api/auth/reset-password/${encodeURIComponent(token)}`, { password: form.password });
+      await apiClient.post(`/api/auth/reset-password/${encodeURIComponent(token)}`, { password: form.password });
       toast.success('Password reset successful. You may now sign in.');
       navigate('/login');
     } catch (err) {

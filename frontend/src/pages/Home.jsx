@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import { FaSearch, FaPaw } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import AnimalCard from '../components/AnimalCard';
@@ -55,7 +55,7 @@ const Home = () => {
 
   const fetchTotalAnimals = async () => {
     try {
-      const response = await axios.get('/api/animals', { params: { limit: 1 } });
+      const response = await apiClient.get('/api/animals', { params: { limit: 1 } });
       setTotalAnimals(response.data.total);
     } catch (error) {
       console.error('Failed to fetch total animals');
@@ -81,7 +81,7 @@ const Home = () => {
         params.sortOrder = 'desc';
       }
 
-      const response = await axios.get('/api/animals', { params });
+      const response = await apiClient.get('/api/animals', { params });
       setAnimals(response.data.animals);
 
       // Fetch reviews for each animal
@@ -89,7 +89,7 @@ const Home = () => {
       await Promise.all(
         response.data.animals.map(async (animal) => {
           try {
-            const reviewsRes = await axios.get(`/api/reviews/animal/${animal._id}`);
+            const reviewsRes = await apiClient.get(`/api/reviews/animal/${animal._id}`);
             if (reviewsRes.data && reviewsRes.data.length > 0) {
               const avgRating =
                 reviewsRes.data.reduce((sum, r) => sum + r.rating, 0) / reviewsRes.data.length;

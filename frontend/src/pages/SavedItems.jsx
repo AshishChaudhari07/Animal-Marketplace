@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useWishlist } from '../context/WishlistContext';
 import toast from 'react-hot-toast';
 import AnimalCard from '../components/AnimalCard';
-import axios from 'axios';
+import apiClient from '../apiClient';
 
 const SavedItems = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const SavedItems = () => {
       await Promise.all(
         wishlist.map(async (animal) => {
           try {
-            const reviewsRes = await axios.get(`/api/reviews/animal/${animal._id}`);
+            const reviewsRes = await apiClient.get(`/api/reviews/animal/${animal._id}`);
             if (reviewsRes.data && reviewsRes.data.length > 0) {
               const avgRating =
                 reviewsRes.data.reduce((sum, r) => sum + r.rating, 0) / reviewsRes.data.length;
