@@ -1,17 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import axios from "axios";
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true
-      }
-    }
-  }
-})
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
-
+export default apiClient;
