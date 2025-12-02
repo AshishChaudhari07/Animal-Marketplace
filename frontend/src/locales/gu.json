@@ -77,8 +77,7 @@
     "errorPasswordLength": "પાસવર્ડ ઓછામાં ઓછા 6 અક્ષરોનો હોવો જોઈએ.",
     "errorConfirm": "કૃપા કરીને પાસવર્ડની પુષ્ટિ કરો.",
     "errorPasswordMatch": "પાસવર્ડ મેળ ખાતા નથી."
-  }
-  ,
+  },
   "login": {
     "title": "તમારા એકાઉન્ટમાં સાઇન ઇન કરો",
     "subtitle": "પુનઃ સ્વાગત — તમારી ડેશબોર્ડ ઍક્સેસ કરવા માટે ક્રેડેન્શિયલ્સ દાખલ કરો અને લિસ્ટિંગ્સ, સંદેશાઓ અને સેવ કરેલા વસ્તુઓ મેનેજ કરો.",
@@ -122,5 +121,50 @@
     "priceHigh": "કિંમત: ઉપરથી નીચાની",
     "featured": "ફીચર્ડ પ્રાણી",
     "noAnimals": "કોઈ પ્રાણી મળ્યા નહીં. કૃપા કરીને તમારી શોધ અથવા ફિલ્ટર્સ ગોઠવવાનો પ્રયત્ન કરો."
-  }
+  },
+  "login": {
+  "title": "Welcome Back",
+  "subtitle": "Sign in to continue your journey on Animal Marketplace.",
+  "emailPlaceholder": "Email Address",
+  "passwordPlaceholder": "Password",
+  "signin": "Sign In",
+  "signing": "Signing In...",
+  "forgot": "Forgot Password?",
+  "noAccount": "Don't have an account?",
+  "signup": "Sign Up",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "success": "Login successful!",
+  "failed": "Invalid email or password"
+},
+"register": {
+  "title": "Create Your Account",
+  "subtitle": "Join the Animal Marketplace to buy, sell, or adopt animals.",
+  "fullName": "Full Name",
+  "email": "Email Address",
+  "iWant": "I Want To",
+  "buyAdopt": "Buy / Adopt",
+  "sellAnimals": "Sell Animals",
+  "phoneOptional": "Phone (Optional)",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "city": "City",
+  "state": "State",
+  "zip": "Zip Code",
+  "create": "Create Account",
+  "already": "Already have an account?",
+  "success": "Account created successfully!",
+  "failed": "Registration failed!",
+  "creating": "Creating account...",
+  "errorsFix": "Please fix all errors before submitting",
+  "errorName": "Full name must be at least 2 characters",
+  "errorEmailRequired": "Email is required",
+  "errorEmailValid": "Please enter a valid email address",
+  "errorPasswordRequired": "Password is required",
+  "errorPasswordLength": "Password must be at least 6 characters",
+  "errorConfirm": "Confirm password is required",
+  "errorPasswordMatch": "Passwords do not match",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password"
+}
 }
